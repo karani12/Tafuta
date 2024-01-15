@@ -21,6 +21,7 @@ class TextParser implements IParseFile
      */
     function parse_file()
     {
+        $arr = [];
         $file_info = pathinfo($this->file_path);
         if ($file_info['extension'] !== 'txt'){
             throw  new \Exception('The file must be a text file');
@@ -31,17 +32,12 @@ class TextParser implements IParseFile
             $file_handle = fopen($this->file_path, 'r');
             while (!feof($file_handle)){
                 $line = fgets($file_handle);
-                $t_line = trim($line);
-                if (preg_match('/^\d+/', $t_line)){
-                    if ($line[0] !== '#' ){
-                        printf("line %s", $t_line);
-                        var_dump(explode(".", $line));
-
-                    }
-
-                }
+                array_push($arr, $line);
             }
             fclose($file_handle);
+            for ($i = 0; $i < sizeof($arr); ++$i){
+                echo $i.'http://'.$arr[$i];
+            }
 
 
         }else{
